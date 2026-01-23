@@ -1,0 +1,127 @@
+<ion-header class="custom-header ion-no-border animate-header">
+  <div class="header-container">
+    <div class="logo-text"><h2>Cafe Shop</h2></div>
+    
+    <div class="greeting-row">
+      <div class="menu-button" (click)="openMenu()">
+        <ion-icon name="options-outline"></ion-icon>
+      </div>
+      <div class="greeting-text">
+        <h2 class="prismatic-scatter">
+          <span class="word" *ngFor="let word of greetingWords; let wIdx = index">
+            <span class="char" 
+                  *ngFor="let char of word.chars; let cIdx = index"
+                  [style.animation-delay]="(wIdx * 0.12 + cIdx * 0.03 + 0.1) + 's'">
+              {{char}}
+            </span>
+          </span>
+        </h2>
+        <p class="animate-header" style="animation-delay: 0.6s">Group 16</p>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="main-content">
+    <div class="hero-text">
+      <h2>Ready For Your Matcha Fix?</h2>
+    </div>
+
+    <!-- Promo Card -->
+    <div class="promo-card animate-item glass-shine-card" style="animation-delay: 0.4s">
+      <swiper-container pagination="true" navigation="true" loop="true" autoplay="true" autoplay-delay="3000" class="promo-swiper">
+        <swiper-slide>
+          <img src="assets/icon/img1.png" alt="Promo 1" />
+          <div class="promo-overlay">
+            <h3>MATCHA</h3>
+            <h4>SIP CLUB</h4>
+            <div class="join-btn" (click)="goToMenu()">Join Now</div>
+          </div>
+        </swiper-slide>
+
+        <swiper-slide>
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Promo 2" />
+          <div class="promo-overlay">
+            <h3>COFFEE</h3>
+            <h4>ROASTERY</h4>
+            <div class="join-btn" (click)="goToMenu()">Join Now</div>
+          </div>
+        </swiper-slide>
+
+        <swiper-slide>
+          <img src="https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Promo 3" />
+          <div class="promo-overlay">
+            <h3>BAKERY</h3>
+            <h4>FRESH DAILY</h4>
+            <div class="join-btn" (click)="goToMenu()">Join Now</div>
+          </div>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+
+    <!-- Start Order Button -->
+    <div class="start-order-btn-container">
+      <div class="start-order-btn" (click)="goToMenu()">
+        <span>Start New Order</span>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="section-header">
+      <h3>All Categories</h3>
+      <a (click)="showAllCategories()">See All <ion-icon name="chevron-forward"></ion-icon></a>
+    </div>
+
+    <div class="categories-list animate-item" style="animation-delay: 0.5s">
+      <div class="category-chip" *ngFor="let cat of categories; let i = index" [class.active]="cat.active" (click)="selectCategory(cat)">
+        <div class="color-dot" *ngIf="cat.active"></div>
+        {{ cat.name }}
+      </div>
+    </div>
+
+    <!-- Product List -->
+    <div class="product-list">
+      <div class="product-card animate-item glass-shine-card" *ngFor="let p of products; let i = index" (click)="goToDetail(p)" [style.animation-delay]="(i * 0.1 + 0.6) + 's'">
+        <div class="product-image">
+          <img [src]="p.image" alt="{{ p.name }}">
+        </div>
+        <div class="product-info">
+          <h4>{{ p.name }}</h4>
+          <p>{{ p.description }}</p>
+        </div>
+        <div class="product-price-action">
+          <span class="price">${{ p.price.toFixed(2) }}</span>
+          <ion-icon name="arrow-forward"></ion-icon>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Spacing for tabs -->
+    <div style="height: 100px;"></div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-tab-bar>
+    <ion-tab-button [routerLink]="['/home']" routerLinkActive="tab-selected">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/order']" routerLinkActive="tab-selected">
+      <ion-icon name="cafe"></ion-icon>
+      <ion-label>Order</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/menu']" routerLinkActive="tab-selected">
+      <ion-icon name="restaurant"></ion-icon>
+      <ion-label>Menu</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/report']" routerLinkActive="tab-selected">
+      <ion-icon name="analytics"></ion-icon>
+      <ion-label>Report</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-footer>

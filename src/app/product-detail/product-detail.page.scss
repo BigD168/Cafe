@@ -1,0 +1,179 @@
+ion-content {
+  --background: #f5f5f5;
+}
+
+ion-toolbar {
+  --background: #f5f5f5; /* Match content background for seamless look */
+  --color: #1b4332; /* Green color for title text */
+  
+  ion-title {
+    color: #1b4332;
+    font-weight: 700;
+  }
+}
+
+/* Image Section - Responsive Height */
+.product-image-container {
+  width: 100%;
+  height: 42vh; /* Use viewport height for responsiveness */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  
+  img {
+    height: 80%; /* Scale relative to container */
+    width: auto;
+    max-width: 80%;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
+  }
+}
+
+/* Details Card - Overlaps Image */
+.product-details {
+  background: #ffffff;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  padding: 35px 25px 120px 25px; /* Extra bottom padding for footer space */
+  min-height: 60vh;
+  margin-top: -40px; /* The negative margin key to the "Card Overlap" look */
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.05);
+  
+  .name-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    
+    h1 {
+      font-size: clamp(24px, 5vw, 28px); /* Responsive font scaling */
+      font-weight: 800;
+      color: #1b4332;
+      margin: 0;
+      line-height: 1.1;
+      max-width: 70%;
+    }
+    
+    .price {
+      font-size: 22px;
+      font-weight: 700;
+      color: #aacc00;
+    }
+  }
+  
+  .rating-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    
+    ion-icon {
+      font-size: 16px;
+      margin-right: 2px;
+    }
+    
+    span {
+      color: #999;
+      font-size: 13px;
+      margin-left: 8px;
+      font-weight: 600;
+    }
+  }
+  
+  .description {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 35px;
+  }
+  
+  .size-options {
+  margin-top: 24px;
+
+  &.sugar-options {
+    margin-top: 16px;
+  }
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1b4332;
+      margin-bottom: 15px;
+    }
+    
+    .sizes {
+      display: flex;
+      gap: 15px;
+      
+      .size-chip {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        border: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+        color: #666;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        
+        &.active {
+          background-color: #1b4332;
+          color: #fff;
+          border-color: #1b4332;
+          box-shadow: 0 4px 10px rgba(27, 67, 50, 0.3);
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+/* Sticky Footer */
+ion-footer {
+  background: #ffffff;
+  /* Respect safe area for iPhone X+ home bar */
+  padding: 15px 25px max(20px, env(safe-area-inset-bottom)) 25px;
+  box-shadow: 0 -5px 30px rgba(0,0,0,0.05);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .price-total {
+      span {
+        display: block;
+        font-size: 12px;
+        color: #999;
+        margin-bottom: 2px;
+      }
+      h3 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 800;
+        color: #1b4332;
+      }
+    }
+    
+    .add-btn {
+      width: 60%;
+      height: 55px;
+      --background: #1b4332;
+      --border-radius: 20px;
+      font-weight: 700;
+      font-size: 16px;
+      --box-shadow: 0 8px 20px rgba(27, 67, 50, 0.3);
+    }
+  }
+}

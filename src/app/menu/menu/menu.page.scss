@@ -1,0 +1,113 @@
+.custom-header {
+  background: #1a4d3e; /* Dark green color from screenshot */
+  padding-bottom: 20px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+  ion-toolbar {
+    --background: transparent;
+    --border-color: transparent;
+  }
+}
+
+.header-container {
+  background: #1a4d3e;
+  padding: 20px 20px 40px 20px;
+  color: white;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.logo-text {
+  text-align: center;
+  margin-bottom: 20px;
+  h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+.greeting-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .menu-button {
+    background: #d4e157; /* Light green circle */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a4d3e;
+    font-size: 24px;
+  }
+
+  .greeting-text {
+    h2 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.8;
+      color: #d4e157;
+    }
+  }
+}
+
+.menu-content {
+  padding: 20px;
+}
+
+ion-segment {
+  margin-bottom: 20px;
+  --background: #f4f5f8;
+  
+  ion-segment-button {
+    --color: #666;
+    --color-checked: #1a4d3e;
+    --indicator-color: #d4e157; /* Highlight color */
+  }
+}
+
+.product-list {
+  background: transparent;
+  padding: 0;
+}
+
+.product-item {
+  margin-bottom: 10px;
+  --background: #ffffff; /* Explicitly set to white to avoid dark mode inheritance if that's the issue, or keep transparent if the parent is white */
+  --padding-start: 0;
+  
+  ion-thumbnail {
+    --size: 70px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 16px;
+    color: #1a4d3e;
+  }
+
+  p {
+    font-size: 13px;
+    color: #888;
+  }
+
+  .price {
+    color: #d4e157; /* Price color to match highlight */
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 5px;
+  }
+}

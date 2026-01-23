@@ -1,0 +1,81 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" color="dark"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="dark" (click)="goHome()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="product">
+  <div class="product-image-container animate-item" style="animation-delay: 0.1s">
+    <img [src]="product.image" alt="{{ product.name }}">
+  </div>
+
+  <div class="product-details animate-item" style="animation-delay: 0.3s">
+    <div class="name-price-row">
+      <h1>{{ product.name }}</h1>
+      <span class="price">${{ product.price.toFixed(2) }}</span>
+    </div>
+    
+    <div class="rating-row">
+       <ion-icon name="star" color="warning"></ion-icon>
+       <ion-icon name="star" color="warning"></ion-icon>
+       <ion-icon name="star" color="warning"></ion-icon>
+       <ion-icon name="star" color="warning"></ion-icon>
+       <ion-icon name="star-half" color="warning"></ion-icon>
+       <span>4.5 (128 reviews)</span>
+    </div>
+
+    <p class="description">
+      {{ product.description }}
+      <br><br>
+      Enjoy the finest organic {{ product.name }} sourced directly from my hometown. Perfect for a refreshing energy boost without the jitters.
+    </p>
+
+    <div *ngIf="showOptions" class="animate-item" style="animation-delay: 0.5s">
+      <div class="size-options">
+        <h3>Size</h3>
+        <div class="sizes">
+          <div 
+            class="size-chip" 
+            *ngFor="let size of sizes" 
+            [class.active]="selectedSize === size"
+            (click)="selectSize(size)">
+            {{ size }}
+          </div>
+        </div>
+      </div>
+
+      <div class="size-options sugar-options">
+        <h3>Sugar</h3>
+        <div class="sizes">
+          <div 
+            class="size-chip" 
+            *ngFor="let level of sugarLevels" 
+            [class.active]="selectedSugar === level"
+            (click)="selectSugar(level)">
+            {{ level }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <div class="footer-container">
+    <div class="price-total">
+      <span>Price</span>
+      <h3>${{ product?.price.toFixed(2) }}</h3>
+    </div>
+    <ion-button expand="block" shape="round" color="success" class="add-btn" (click)="addToCart()">
+      Order Now
+    </ion-button>
+  </div>
+</ion-footer>

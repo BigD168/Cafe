@@ -1,0 +1,97 @@
+<ion-header class="ion-no-border custom-header animate-header">
+  <div class="header-container">
+    <div class="logo-text">
+      <h2>Cafe Shop</h2>
+    </div>
+    
+    <div class="greeting-row">
+      <div class="menu-button" (click)="openMenu()">
+        <ion-icon name="options-outline"></ion-icon>
+      </div>
+      <div class="greeting-text">
+        <h2 class="prismatic-scatter">
+          <span class="word">
+            <span class="char" *ngFor="let char of pageTitleChars; let i = index" [style.animation-delay]="(i * 0.05 + 0.1) + 's'">
+              {{char}}
+            </span>
+          </span>
+        </h2>
+        <p class="animate-header" style="animation-delay: 0.6s">Group 16</p>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding animate-slide-left">
+    <h2 style="margin-top: 0; color: #1b4332; font-weight: 700;">My Order</h2>
+    
+    <div *ngIf="cartItems.length === 0" style="text-align: center; margin-top: 50px; color: #999;">
+      <ion-icon name="cart-outline" style="font-size: 64px; margin-bottom: 20px;"></ion-icon>
+      <p>Your cart is empty.</p>
+    </div>
+
+    <ion-list lines="none" *ngIf="cartItems.length > 0" class="cart-list">
+      <ion-item *ngFor="let item of cartItems; let i = index" class="cart-item animate-item glass-shine-card" [style.animation-delay]="(i * 0.1 + 0.3) + 's'">
+        <ion-thumbnail slot="start">
+          <img [src]="item.product.image" alt="{{ item.product.name }}" />
+        </ion-thumbnail>
+        
+        <div class="item-info">
+          <h3>{{ item.product.name }}</h3>
+          <p class="item-details" *ngIf="item.size || item.sugar" style="font-size: 13px; color: #888; margin: 4px 0;">
+            Size: {{ item.size }} | Sugar: {{ item.sugar }}
+          </p>
+          <p class="price-tag">${{ item.product.price.toFixed(2) }}</p>
+          
+          <div class="quantity-controls">
+            <ion-button fill="clear" size="small" (click)="updateQuantity(item, -1)">
+              <span style="font-size: 18px; color: #666;">-</span>
+            </ion-button>
+            <span class="qty">{{ item.quantity }}</span>
+            <ion-button fill="clear" size="small" (click)="updateQuantity(item, 1)">
+              <span style="font-size: 18px; color: #1b4332;">+</span>
+            </ion-button>
+          </div>
+        </div>
+
+        <div slot="end" class="action-end">
+          <p class="total-price">${{ (item.product.price * item.quantity).toFixed(2) }}</p>
+          <ion-button fill="clear" color="danger" (click)="deleteItem(item)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <div *ngIf="cartItems.length > 0" class="order-summary">
+      <ion-button expand="block" shape="round" color="success" class="buy-btn" (click)="checkout()">
+        Buy Now
+      </ion-button>
+    </div>
+  </div>
+
+   <!-- Spacing for tabs -->
+   <div style="height: 100px;"></div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-tab-bar>
+    <ion-tab-button [routerLink]="['/home']" routerLinkActive="tab-selected">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/order']" routerLinkActive="tab-selected">
+      <ion-icon name="cafe"></ion-icon>
+      <ion-label>Order</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/menu']" routerLinkActive="tab-selected">
+      <ion-icon name="restaurant"></ion-icon>
+      <ion-label>Menu</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/report']" routerLinkActive="tab-selected">
+      <ion-icon name="analytics"></ion-icon>
+      <ion-label>Report</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-footer>

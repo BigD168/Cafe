@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, MenuController } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, MenuController, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { homeOutline, cafeOutline, restaurantOutline, analyticsOutline, optionsOutline } from 'ionicons/icons';
+import { homeOutline, cafeOutline, restaurantOutline, analyticsOutline, optionsOutline, home, cafe, restaurant, analytics } from 'ionicons/icons';
 import { ReportService, OrderReport } from '../../services/report.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { ReportService, OrderReport } from '../../services/report.service';
   templateUrl: './report.page.html',
   styleUrls: ['./report.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, IonGrid, IonRow, IonCol]
 })
 export class ReportPage implements OnInit {
   reports: OrderReport[] = [];
@@ -20,12 +20,15 @@ export class ReportPage implements OnInit {
 
   constructor(private reportService: ReportService, private menuCtrl: MenuController) {
     addIcons({
-      'home': homeOutline,
-      'cafe': cafeOutline,
-      'restaurant': restaurantOutline,
-      'analytics': analyticsOutline,
-      'options-outline': optionsOutline,
-      'analytics-outline': analyticsOutline
+      home,
+      cafe,
+      restaurant,
+      analytics,
+      homeOutline,
+      cafeOutline,
+      restaurantOutline,
+      analyticsOutline,
+      optionsOutline
     });
   }
 

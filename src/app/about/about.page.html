@@ -1,0 +1,51 @@
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="background-overlay"></div>
+  
+  <div class="login-container">
+    <div class="glass-card">
+      <div class="header-section">
+        <ion-button fill="clear" class="back-button" (click)="goBack()">
+          <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+        <div class="logo-container">
+          <ion-icon name="cafe-outline" class="main-logo"></ion-icon>
+        </div>
+        <h1>About Us</h1>
+        <p>Your ultimate coffee destination</p>
+      </div>
+
+      <div class="about-section">
+        <div class="mission-section">
+          <h3>Our Mission</h3>
+          <p>We are dedicated to providing the finest coffee experience, sourced ethically and prepared with passion for our community.</p>
+        </div>
+
+        <div class="contact-section">
+          <div class="contact-item">
+            <ion-icon name="mail-outline"></ion-icon>
+            <span>contact@cafeshop.com</span>
+          </div>
+        </div>
+
+        <div class="social-section">
+          <p>Follow Us</p>
+          <div class="social-links">
+            <ion-button fill="clear">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <p>Version 1.0.0</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

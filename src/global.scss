@@ -34,7 +34,7 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+/* @import '@ionic/angular/css/palettes/dark.system.css'; */
 
 /* =========================================
    SHARED APP STYLES (Header & Footer)
@@ -42,6 +42,11 @@
 
 ion-content {
   --background: #ffffff;
+  background: #ffffff;
+}
+
+ion-app {
+  background-color: #ffffff !important;
 }
 
 /* Custom Header Styling */
@@ -170,34 +175,152 @@ ion-tab-button {
 
 /* 
    Desktop/Laptop View Optimization 
-   Forces the app to look like a phone on large screens 
+   Provides a centered, spacious layout for large screens
 */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body {
-    background-color: #eef1f5; /* Light grey backdrop */
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
+    background-color: #f4f7f6; /* Modern light grey-green backdrop */
   }
 
   ion-app {
-    max-width: 414px; /* Max width of a large phone */
-    width: 100%;
+    max-width: 1400px; /* Full screen experience */
     margin: 0 auto;
-    position: relative;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
     background-color: #fff;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); /* Drop shadow to pop against bg */
-    min-height: 100vh;
-    border-right: 1px solid rgba(0,0,0,0.05);
-    border-left: 1px solid rgba(0,0,0,0.05);
   }
+}
+
+/* =========================================
+   ADAPTIVE TAB BAR DESIGN
+   Solid on Mobile | Circular on Laptop
+   ========================================= */
+
+/* 1. Mobile Default (Solid Background Bar) */
+ion-footer {
+  background: #1b4332 !important;
+  --background: #1b4332 !important;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
   
-  /* Reset fixed position elements to align with the centered app */
-  ion-footer, ion-tab-bar {
+  ion-tab-bar {
+    --background: #1b4332 !important;
+    background: #1b4332 !important;
+    border: none !important;
+    height: 70px;
+    padding-bottom: 5px;
+  }
+}
+
+ion-tab-button {
+  --color: rgba(255, 255, 255, 0.6);
+  --color-selected: #d9ed92;
+  --background: transparent !important;
+  
+  ion-icon {
+    font-size: 24px;
+    margin-bottom: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  ion-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: inherit;
+  }
+
+  &.tab-selected {
+    ion-icon {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* 2. Laptop/Desktop View (Floating Circular Buttons) */
+@media (min-width: 992px) {
+  /* Only apply floating style to the main navigation footer */
+  ion-footer:has(ion-tab-bar) {
+    position: fixed !important;
+    bottom: 30px !important;
     left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: 100% !important;
-    max-width: 414px !important;
+    transform: translateX(-50%);
+    width: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background: transparent !important;
+    --background: transparent !important;
+    pointer-events: auto; /* Allow interaction with the footer itself */
+    z-index: 99999 !important;
+    border-radius: 0;
+    box-shadow: none !important;
+    overflow: visible;
+
+    ion-tab-bar {
+      background: transparent !important;
+      --background: transparent !important;
+      width: auto !important;
+      gap: 18px !important;
+      padding: 10px !important;
+      pointer-events: auto !important;
+      overflow: visible !important;
+      contain: none !important;
+      height: auto !important;
+    }
+  }
+
+  ion-tab-button {
+    background: #1b4332 !important;
+    border-radius: 50% !important;
+    width: 62px !important;
+    height: 62px !important;
+    min-width: 62px !important;
+    min-height: 62px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    padding: 0 !important;
+
+    &::part(native) {
+      border-radius: 50% !important;
+      padding: 0 !important;
+    }
+
+    ion-icon {
+      font-size: 28px !important;
+      margin: 0 !important;
+    }
+
+    ion-label {
+      display: none !important;
+    }
+
+    &.tab-selected {
+      background: #214d3e !important;
+      transform: translateY(-12px) scale(1.15) !important;
+      box-shadow: 0 15px 35px rgba(27, 67, 50, 0.5) !important;
+    }
+
+    &:active {
+      transform: scale(0.9) translateY(-5px) !important;
+    }
+  }
+}
+
+/* Cleanup */
+ion-tab-button::before,
+ion-tab-button::after {
+  display: none !important;
+}
+
+/* Ensure split-pane sidebar looks good */
+ion-menu.account-side-menu {
+  --width: 280px;
+  
+  @media (min-width: 992px) {
+    --width: 300px;
+    border-right: 1px solid rgba(0,0,0,0.05);
   }
 }
 
@@ -445,7 +568,8 @@ ion-menu.account-side-menu {
   }
 
   ion-content {
-    --background: transparent;
+    --background: #1b4332 !important;
+    background: #1b4332 !important;
     padding-top: 20px;
 
     ion-list {

@@ -33,18 +33,27 @@
       </ion-segment-button>
     </ion-segment>
 
-    <ion-list lines="none" class="product-list">
-      <ion-item *ngFor="let product of filteredProducts; let i = index" class="product-item animate-item glass-shine-card" [style.animation-delay]="(i * 0.1 + 0.4) + 's'" button (click)="openDetail(product)">
-        <ion-thumbnail slot="start">
-          <img [src]="product.image" alt="{{ product.name }}" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>{{ product.name }}</h2>
-          <p>{{ product.description }}</p>
-          <h3 class="price">${{ product.price.toFixed(2) }}</h3>
-        </ion-label>
-      </ion-item>
-    </ion-list>
+    <div class="product-grid animate-item" style="animation-delay: 0.4s">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col size="12" size-md="6" size-lg="4" *ngFor="let product of filteredProducts; let i = index">
+            <div class="product-card glass-shine-card animate-item" [style.animation-delay]="(i * 0.05 + 0.5) + 's'" (click)="openDetail(product)">
+              <div class="product-image">
+                <img [src]="product.image" alt="{{ product.name }}" />
+              </div>
+              <div class="product-info">
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <h3 class="price">${{ product.price.toFixed(2) }}</h3>
+              </div>
+              <div class="product-action">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
   </div>
 
    <!-- Spacing for tabs -->

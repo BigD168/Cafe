@@ -1,0 +1,38 @@
+.sidebar-nav {
+  padding-top: 20px;
+
+  ion-item {
+    --background: transparent;
+    --color: rgba(255, 255, 255, 0.7);
+    --border-radius: 12px;
+    margin: 4px 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    ion-icon {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 22px;
+      margin-right: 16px;
+    }
+
+    &.active-link {
+      --background: rgba(217, 237, 146, 0.15);
+      --color: #d9ed92;
+      font-weight: 700;
+
+      ion-icon {
+        color: #d9ed92;
+      }
+    }
+
+    &:hover {
+      --background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  .menu-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 15px 25px;
+  }
+}

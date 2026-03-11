@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, IonList, IonItem, IonThumbnail, IonText, IonButton, AlertController, MenuController } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, IonList, IonItem, IonThumbnail, IonText, IonButton, AlertController, MenuController, IonGrid, IonRow, IonCol, IonModal } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { homeOutline, cafeOutline, restaurantOutline, analyticsOutline, optionsOutline, trashOutline, cartOutline, checkmarkDoneOutline } from 'ionicons/icons';
+import { homeOutline, cafeOutline, restaurantOutline, analyticsOutline, optionsOutline, trashOutline, cartOutline, checkmarkDoneOutline, home, cafe, restaurant, analytics } from 'ionicons/icons';
 import { CartService, CartItem } from '../../services/cart.service';
 import { ReportService } from '../../services/report.service';
 
@@ -13,12 +13,14 @@ import { ReportService } from '../../services/report.service';
   templateUrl: './order.page.html',
   styleUrls: ['./order.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, IonList, IonItem, IonThumbnail, IonText, IonButton]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, IonList, IonItem, IonThumbnail, IonText, IonButton, IonGrid, IonRow, IonCol, IonModal]
 })
 export class OrderPage implements OnInit {
 
   cartItems: CartItem[] = [];
+  cartTotal: number = 0;
   pageTitleChars = 'Order'.split('');
+  isPaymentModalOpen = false;
 
   constructor(
     private cartService: CartService, 
@@ -27,21 +29,30 @@ export class OrderPage implements OnInit {
     private menuCtrl: MenuController
   ) {
     addIcons({
-      'home': homeOutline,
-      'cafe': cafeOutline,
-      'restaurant': restaurantOutline,
-      'analytics': analyticsOutline,
-      'options-outline': optionsOutline,
-      'trash-outline': trashOutline,
-      'cart-outline': cartOutline,
-      'checkmark-done-outline': checkmarkDoneOutline
+      home,
+      cafe,
+      restaurant,
+      analytics,
+      homeOutline,
+      cafeOutline,
+      restaurantOutline,
+      analyticsOutline,
+      optionsOutline,
+      trashOutline,
+      cartOutline,
+      checkmarkDoneOutline
     });
   }
 
   ngOnInit() {
     this.cartService.getCart().subscribe(items => {
       this.cartItems = items;
+      this.calculateTotal();
     });
+  }
+
+  calculateTotal() {
+    this.cartTotal = this.cartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
   }
 
   updateQuantity(item: CartItem, change: number) {
@@ -54,8 +65,12 @@ export class OrderPage implements OnInit {
 
   async checkout() {
     if (this.cartItems.length === 0) return;
+    this.isPaymentModalOpen = true;
+  }
 
-    const totalPrice = this.cartItems.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
+  async confirmPayment() {
+    this.isPaymentModalOpen = false;
+    const totalPrice = this.cartTotal;
     
     // Save report
     this.reportService.addReport(this.cartItems, totalPrice);

@@ -23,114 +23,56 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="ion-padding order-grid-container">
-    <h2 class="page-section-title">My Order</h2>
+  <div class="ion-padding animate-slide-left">
+    <h2 style="margin-top: 0; color: #1b4332; font-weight: 700;">My Order</h2>
     
-    <div *ngIf="cartItems.length === 0" class="empty-cart-state animate-fade-in">
-      <ion-icon name="cart-outline"></ion-icon>
-      <p>Your basket is empty</p>
-      <div class="sub-text">Looks like you haven't added anything to your basket yet.</div>
-      <ion-button class="explore-btn" [routerLink]="['/menu']">
-        EXPLORE MENU
-      </ion-button>
+    <div *ngIf="cartItems.length === 0" style="text-align: center; margin-top: 50px; color: #999;">
+      <ion-icon name="cart-outline" style="font-size: 64px; margin-bottom: 20px;"></ion-icon>
+      <p>Your cart is empty.</p>
     </div>
 
-    <ion-grid *ngIf="cartItems.length > 0" class="ion-no-padding">
-      <ion-row>
-        <!-- Cart Items List -->
-        <ion-col size="12" size-lg="8" class="animate-slide-left">
-          <ion-list lines="none" class="cart-list">
-            <ion-item *ngFor="let item of cartItems; let i = index" class="cart-item animate-item" [style.animation-delay]="(i * 0.1 + 0.2) + 's'">
-              <ion-thumbnail slot="start">
-                <img [src]="item.product.image" alt="{{ item.product.name }}" />
-              </ion-thumbnail>
-              
-              <div class="item-info">
-                <h3>{{ item.product.name }}</h3>
-                <p class="item-details" *ngIf="item.size || item.sugar">
-                  {{ item.size }} | {{ item.sugar }} sugar
-                </p>
-                <p class="price-tag">Unit Price: ${{ item.product.price.toFixed(2) }}</p>
-                
-                <div class="quantity-controls">
-                  <ion-button fill="clear" (click)="updateQuantity(item, -1)">-</ion-button>
-                  <span class="qty">{{ item.quantity }}</span>
-                  <ion-button fill="clear" (click)="updateQuantity(item, 1)">
-                    <span class="plus">+</span>
-                  </ion-button>
-                </div>
-              </div>
-
-              <div slot="end" class="action-end">
-                <p class="total-price">${{ (item.product.price * item.quantity).toFixed(2) }}</p>
-                <ion-button fill="clear" class="delete-btn" (click)="deleteItem(item)">
-                  <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
-                </ion-button>
-              </div>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-
-        <!-- Order Summary Column -->
-        <ion-col size="12" size-lg="4" class="animate-fade-in" style="animation-delay: 0.5s">
-          <div class="order-summary-container">
-            <div class="summary-card">
-              <h3>Order Summary</h3>
-              
-              <div class="summary-details">
-                <div class="summary-row">
-                  <span>Subtotal</span>
-                  <span>${{ cartTotal.toFixed(2) }}</span>
-                </div>
-                <div class="summary-row">
-                  <span>Delivery Fee</span>
-                  <span>$0.00</span>
-                </div>
-              </div>
-
-              <div class="summary-row total-row">
-                <span>Total Amount</span>
-                <span>${{ cartTotal.toFixed(2) }}</span>
-              </div>
-
-              <ion-button expand="block" shape="round" class="buy-btn" (click)="checkout()">
-                PROCEED TO BUY
-              </ion-button>
-            </div>
+    <ion-list lines="none" *ngIf="cartItems.length > 0" class="cart-list">
+      <ion-item *ngFor="let item of cartItems; let i = index" class="cart-item animate-item glass-shine-card" [style.animation-delay]="(i * 0.1 + 0.3) + 's'">
+        <ion-thumbnail slot="start">
+          <img [src]="item.product.image" alt="{{ item.product.name }}" />
+        </ion-thumbnail>
+        
+        <div class="item-info">
+          <h3>{{ item.product.name }}</h3>
+          <p class="item-details" *ngIf="item.size || item.sugar" style="font-size: 13px; color: #888; margin: 4px 0;">
+            Size: {{ item.size }} | Sugar: {{ item.sugar }}
+          </p>
+          <p class="price-tag">${{ item.product.price.toFixed(2) }}</p>
+          
+          <div class="quantity-controls">
+            <ion-button fill="clear" size="small" (click)="updateQuantity(item, -1)">
+              <span style="font-size: 18px; color: #666;">-</span>
+            </ion-button>
+            <span class="qty">{{ item.quantity }}</span>
+            <ion-button fill="clear" size="small" (click)="updateQuantity(item, 1)">
+              <span style="font-size: 18px; color: #1b4332;">+</span>
+            </ion-button>
           </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+        </div>
+
+        <div slot="end" class="action-end">
+          <p class="total-price">${{ (item.product.price * item.quantity).toFixed(2) }}</p>
+          <ion-button fill="clear" color="danger" (click)="deleteItem(item)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <div *ngIf="cartItems.length > 0" class="order-summary">
+      <ion-button expand="block" shape="round" color="success" class="buy-btn" (click)="checkout()">
+        Buy Now
+      </ion-button>
+    </div>
   </div>
 
-  <!-- Spacing for tabs -->
-  <div style="height: 120px;"></div>
-
-  <!-- Payment Modal -->
-  <ion-modal [isOpen]="isPaymentModalOpen" (didDismiss)="isPaymentModalOpen = false" class="payment-modal">
-    <ng-template>
-      <div class="modal-wrapper">
-        <div class="modal-header">
-          <h3>Payment</h3>
-          <p>Scan to pay via ABA PAY</p>
-        </div>
-        
-        <div class="qr-container">
-          <img src="assets/images/QR.png" alt="ABA PAY QR Code" />
-          <div class="amount-badge">${{ cartTotal.toFixed(2) }}</div>
-        </div>
-
-        <div class="modal-footer">
-          <ion-button expand="block" shape="round" class="confirm-btn" (click)="confirmPayment()">
-            CONFIRM PAYMENT
-          </ion-button>
-          <ion-button fill="clear" expand="block" (click)="isPaymentModalOpen = false" class="cancel-btn">
-            CANCEL
-          </ion-button>
-        </div>
-      </div>
-    </ng-template>
-  </ion-modal>
+   <!-- Spacing for tabs -->
+   <div style="height: 100px;"></div>
 </ion-content>
 
 <ion-footer class="ion-no-border">

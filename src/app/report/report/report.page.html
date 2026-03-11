@@ -23,33 +23,25 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="animate-slide-left">
-    <h2 class="page-title">Purchase History</h2>
+  <div class="ion-padding animate-slide-left">
+    <h2 style="margin-top: 0; color: #1b4332; font-weight: 700;">Purchase History</h2>
     
-    <div *ngIf="reports.length === 0" class="empty-history">
-      <ion-icon name="analytics-outline"></ion-icon>
+    <div *ngIf="reports.length === 0" style="text-align: center; margin-top: 50px; color: #999;">
+      <ion-icon name="analytics-outline" style="font-size: 64px; margin-bottom: 20px;"></ion-icon>
       <p>No purchase history yet.</p>
     </div>
 
-    <ion-grid *ngIf="reports.length > 0" class="ion-no-padding">
-      <ion-row>
-        <ion-col size="12" size-md="6" size-lg="4" *ngFor="let report of reports; let i = index">
-          <div class="report-card animate-item glass-shine-card" [style.animation-delay]="(i * 0.1 + 0.3) + 's'">
-            <div class="report-header">
-              <span class="report-date">{{ report.timestamp }}</span>
-              <span class="report-total">${{ report.totalPrice.toFixed(2) }}</span>
-            </div>
-            <div class="report-items">
-              <div *ngFor="let item of report.items" class="report-item">
-                <span class="qty">{{ item.quantity }}x</span>
-                <span class="name">{{ item.product.name }}</span>
-                <span class="details" *ngIf="item.size">({{ item.size }})</span>
-              </div>
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <div *ngFor="let report of reports; let i = index" class="report-card animate-item glass-shine-card" [style.animation-delay]="(i * 0.1 + 0.3) + 's'">
+      <div class="report-header">
+        <span class="report-date">{{ report.timestamp }}</span>
+        <span class="report-total">${{ report.totalPrice.toFixed(2) }}</span>
+      </div>
+      <div class="report-items">
+        <div *ngFor="let item of report.items" class="report-item">
+          {{ item.quantity }}x {{ item.product.name }} ({{ item.size }}, {{ item.sugar }} sugar)
+        </div>
+      </div>
+    </div>
   </div>
 
    <!-- Spacing for tabs -->

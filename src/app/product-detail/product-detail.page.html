@@ -1,71 +1,49 @@
-<ion-header class="ion-no-border transparent-header">
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home" color="light" mode="md"></ion-back-button>
+      <ion-back-button defaultHref="/home" color="dark"></ion-back-button>
     </ion-buttons>
-    <ion-title color="light">Detail</ion-title>
+    <ion-title>Detail</ion-title>
     <ion-buttons slot="end">
-      <ion-button color="light" (click)="goHome()">
-        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      <ion-button color="dark" (click)="goHome()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="product" class="immersive-content">
-  <!-- Dynamic Background Glows -->
-  <div class="bg-decoration">
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
+<ion-content [fullscreen]="true" *ngIf="product">
+  <div class="product-image-container animate-item" style="animation-delay: 0.1s">
+    <img [src]="product.image" alt="{{ product.name }}">
   </div>
 
-  <div class="hero-section">
-    <div class="product-image-container floating-animation">
-      <img [src]="product.image" alt="{{ product.name }}" class="product-img">
-    </div>
-  </div>
-
-  <div class="product-details slide-up-card">
-    <div class="detail-handle"></div>
-    
+  <div class="product-details animate-item" style="animation-delay: 0.3s">
     <div class="name-price-row">
-      <div class="title-group">
-        <h1>{{ product.name }}</h1>
-        <div class="rating-badge">
-          <ion-icon name="star"></ion-icon>
-          <span>4.5</span>
-        </div>
-      </div>
+      <h1>{{ product.name }}</h1>
       <span class="price">${{ product.price.toFixed(2) }}</span>
     </div>
     
-    <div class="meta-row">
-       <div class="time-chip">
-         <ion-icon name="time-outline"></ion-icon>
-         <span>10-15 min</span>
-       </div>
-       <div class="cal-chip">
-         <ion-icon name="flame-outline"></ion-icon>
-         <span>120 kcal</span>
-       </div>
+    <div class="rating-row">
+       <ion-icon name="star" color="warning"></ion-icon>
+       <ion-icon name="star" color="warning"></ion-icon>
+       <ion-icon name="star" color="warning"></ion-icon>
+       <ion-icon name="star" color="warning"></ion-icon>
+       <ion-icon name="star-half" color="warning"></ion-icon>
+       <span>4.5 (128 reviews)</span>
     </div>
 
-    <div class="section-title">Description</div>
     <p class="description">
       {{ product.description }}
       <br><br>
-      Experience the premium taste of our handcrafted {{ product.name }}. Every sip is designed to tell a story of quality and passion.
+      Enjoy the finest organic {{ product.name }} sourced directly from my hometown. Perfect for a refreshing energy boost without the jitters.
     </p>
 
-    <div *ngIf="showOptions" class="options-container animate-fade-in">
-      <div class="option-type">
-        <div class="option-header">
-          <h3>Choose Size</h3>
-          <span>Required</span>
-        </div>
-        <div class="option-grid">
+    <div *ngIf="showOptions" class="animate-item" style="animation-delay: 0.5s">
+      <div class="size-options">
+        <h3>Size</h3>
+        <div class="sizes">
           <div 
-            class="choice-chip" 
+            class="size-chip" 
             *ngFor="let size of sizes" 
             [class.active]="selectedSize === size"
             (click)="selectSize(size)">
@@ -74,14 +52,11 @@
         </div>
       </div>
 
-      <div class="option-type">
-        <div class="option-header">
-          <h3>Sweetness</h3>
-          <span>Optional</span>
-        </div>
-        <div class="option-grid">
+      <div class="size-options sugar-options">
+        <h3>Sugar</h3>
+        <div class="sizes">
           <div 
-            class="choice-chip" 
+            class="size-chip" 
             *ngFor="let level of sugarLevels" 
             [class.active]="selectedSugar === level"
             (click)="selectSugar(level)">
@@ -93,15 +68,14 @@
   </div>
 </ion-content>
 
-<ion-footer class="ion-no-border premium-footer">
-  <div class="footer-glass">
-    <div class="price-container">
-      <span class="label">Total Price</span>
-      <h3 class="total-value">${{ product?.price.toFixed(2) }}</h3>
+<ion-footer class="ion-no-border">
+  <div class="footer-container">
+    <div class="price-total">
+      <span>Price</span>
+      <h3>${{ product?.price.toFixed(2) }}</h3>
     </div>
-    <ion-button class="buy-now-btn" (click)="addToCart()">
-      Add to Basket
-      <ion-icon slot="end" name="basket-outline"></ion-icon>
+    <ion-button expand="block" shape="round" color="success" class="add-btn" (click)="addToCart()">
+      Order Now
     </ion-button>
   </div>
 </ion-footer>

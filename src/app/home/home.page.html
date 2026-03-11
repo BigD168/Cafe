@@ -72,7 +72,7 @@
     <!-- Categories -->
     <div class="section-header">
       <h3>All Categories</h3>
-      <a (click)="showAllCategories()">See All <ion-icon name="chevron-forward" class="see-all-icon"></ion-icon></a>
+      <a (click)="showAllCategories()">See All <ion-icon name="chevron-forward"></ion-icon></a>
     </div>
 
     <div class="categories-list animate-item" style="animation-delay: 0.5s">
@@ -84,25 +84,19 @@
 
     <!-- Product List -->
     <div class="product-list">
-      <ion-grid class="ion-no-padding">
-        <ion-row>
-          <ion-col size="12" size-md="6" size-lg="4" size-xl="3" *ngFor="let p of products; let i = index">
-            <div class="product-card animate-item glass-shine-card" (click)="goToDetail(p)" [style.animation-delay]="(i * 0.1 + 0.6) + 's'">
-              <div class="product-image">
-                <img [src]="p.image" alt="{{ p.name }}">
-              </div>
-              <div class="product-info">
-                <h4>{{ p.name }}</h4>
-                <p>{{ p.description }}</p>
-              </div>
-              <div class="product-price-action">
-                <span class="price">${{ p.price.toFixed(2) }}</span>
-                <ion-icon name="arrow-forward"></ion-icon>
-              </div>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <div class="product-card animate-item glass-shine-card" *ngFor="let p of products; let i = index" (click)="goToDetail(p)" [style.animation-delay]="(i * 0.1 + 0.6) + 's'">
+        <div class="product-image">
+          <img [src]="p.image" alt="{{ p.name }}">
+        </div>
+        <div class="product-info">
+          <h4>{{ p.name }}</h4>
+          <p>{{ p.description }}</p>
+        </div>
+        <div class="product-price-action">
+          <span class="price">${{ p.price.toFixed(2) }}</span>
+          <ion-icon name="arrow-forward"></ion-icon>
+        </div>
+      </div>
     </div>
     
     <!-- Spacing for tabs -->
@@ -110,49 +104,6 @@
   </div>
 
 </ion-content>
-
-<!-- See All Categories Modal -->
-<ion-modal [isOpen]="isCategoryModalOpen" (didDismiss)="closeCategoryModal()" class="category-modal">
-  <ng-template>
-    <ion-header class="ion-no-border">
-      <ion-toolbar>
-        <ion-title>All Categories</ion-title>
-        <ion-buttons slot="end">
-          <ion-button (click)="closeCategoryModal()">
-            <ion-icon name="close-outline"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content class="modal-bg">
-      <div class="modal-content">
-        <div *ngFor="let group of groupedProducts; let gIdx = index" class="category-group animate-item" [style.animation-delay]="(gIdx * 0.1) + 's'">
-          <h2 class="category-title">{{ group.category }}</h2>
-          <div class="product-grid-container">
-            <div *ngFor="let p of group.products; let i = index" 
-                 class="product-card glass-shine-card animate-item" 
-                 tappable
-                 [style.animation-delay]="(gIdx * 0.1 + i * 0.05 + 0.2) + 's'"
-                 (click)="goToDetail(p)">
-              <div class="product-image">
-                <img [src]="p.image" alt="{{ p.name }}">
-              </div>
-              <div class="product-info">
-                <h4>{{ p.name }}</h4>
-                <p>{{ p.description }}</p>
-                <div class="price-row">
-                  <span class="price">${{ p.price.toFixed(2) }}</span>
-                  <ion-icon name="arrow-forward"></ion-icon>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ion-content>
-  </ng-template>
-</ion-modal>
 
 <ion-footer class="ion-no-border">
   <ion-tab-bar>

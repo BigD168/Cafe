@@ -4,7 +4,7 @@ import { RouterLink, Router, NavigationExtras } from '@angular/router'; // Impor
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonFooter, IonModal, IonGrid, IonRow, IonCol, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { MenuController } from '@ionic/angular/standalone';
-import { homeOutline, cafeOutline, restaurantOutline, analyticsOutline, optionsOutline, arrowForward, chevronForward, closeOutline, home, cafe, restaurant, analytics } from 'ionicons/icons';
+import { homeOutline, cafeOutline, restaurantOutline, analyticsOutline, optionsOutline, arrowForward, chevronForward, closeOutline } from 'ionicons/icons';
 import { register } from 'swiper/element/bundle';
 
 register();
@@ -135,45 +135,18 @@ export class HomePage {
     image: 'https://images.unsplash.com/photo-1550617931-e17a7b70dce2',
     category: 'Cake'
   },
-  {
-    name: 'Berry Blast',
-    description: 'Blueberries, raspberries, and strawberries mixed with Greek yogurt.',
-    price: 6.75,
-    image: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=800&q=80',
-    category: 'Smoothie'
-  },
-  {
-    name: 'Sunrise Citrus',
-    description: 'Orange, grapefruit, and ginger for a morning kick.',
-    price: 6.25,
-    image: 'https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&fit=crop&w=800&q=80',
-    category: 'Smoothie'
-  },
-  {
-    name: 'Midnight Matcha',
-    description: 'Ceremonial grade matcha, honey, and vanilla soy milk.',
-    price: 7.50,
-    image: 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=800&q=80',
-    category: 'Smoothie'
-  },
-  
- 
   ];
 
   constructor(private router: Router, private menuCtrl: MenuController) {
-    addIcons({
-      optionsOutline,
-      arrowForward,
-      chevronForward,
-      home,
-      cafe,
-      restaurant,
-      analytics,
-      homeOutline,
-      cafeOutline,
-      restaurantOutline,
-      analyticsOutline,
-      closeOutline
+    addIcons({ 
+      'home': homeOutline, 
+      'cafe': cafeOutline, 
+      'restaurant': restaurantOutline, 
+      'analytics': analyticsOutline,
+      'options-outline': optionsOutline,
+      'arrow-forward': arrowForward,
+      'chevron-forward': chevronForward,
+      'close': closeOutline
     });
   }
 
@@ -183,22 +156,6 @@ export class HomePage {
       return this.allProducts;
     }
     return this.allProducts.filter(p => p.category === activeCategory.name);
-  }
-
-  get groupedProducts() {
-    const groups: { category: string, products: any[] }[] = [];
-    
-    // Get unique categories from allProducts (excluding 'All')
-    const uniqueCategories = [...new Set(this.allProducts.map(p => p.category))];
-    
-    uniqueCategories.forEach(cat => {
-      groups.push({
-        category: cat,
-        products: this.allProducts.filter(p => p.category === cat)
-      });
-    });
-    
-    return groups;
   }
 
   selectCategory(category: any) {
@@ -220,18 +177,12 @@ export class HomePage {
   }
 
   goToDetail(product: any) {
-    this.isCategoryModalOpen = false;
-    
-    // Use setTimeout to ensure the modal state change reflects 
-    // before the route transition occurs
-    setTimeout(() => {
-      let navigationExtras: NavigationExtras = {
-        state: {
-          product: product
-        }
-      };
-      this.router.navigate(['product-detail'], navigationExtras);
-    }, 50);
+    let navigationExtras: NavigationExtras = {
+      state: {
+        product: product
+      }
+    };
+    this.router.navigate(['product-detail'], navigationExtras);
   }
 
   goToMenu() {

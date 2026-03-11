@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, IonSegment, IonSegmentButton, IonList, IonItem, IonThumbnail, MenuController, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, IonSegment, IonSegmentButton, IonList, IonItem, IonThumbnail, MenuController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { homeOutline, cafeOutline, restaurantOutline, analyticsOutline, optionsOutline, addCircleOutline, home, cafe, restaurant, analytics } from 'ionicons/icons';
+import { homeOutline, cafeOutline, restaurantOutline, analyticsOutline, optionsOutline } from 'ionicons/icons';
 
 interface Product {
   name: string;
@@ -19,7 +19,7 @@ interface Product {
   templateUrl: './menu.page.html',
   styleUrls: ['./menu.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, IonSegment, IonSegmentButton, IonList, IonItem, IonThumbnail, IonGrid, IonRow, IonCol]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink, IonFooter, IonTabBar, IonTabButton, IonIcon, IonLabel, IonSegment, IonSegmentButton, IonList, IonItem, IonThumbnail]
 })
 export class MenuPage implements OnInit {
 
@@ -73,16 +73,11 @@ export class MenuPage implements OnInit {
 
   constructor(private router: Router, private menuCtrl: MenuController) {
     addIcons({
-      optionsOutline,
-      addCircleOutline,
-      home,
-      cafe,
-      restaurant,
-      analytics,
-      homeOutline,
-      cafeOutline,
-      restaurantOutline,
-      analyticsOutline
+      'home': homeOutline,
+      'cafe': cafeOutline,
+      'restaurant': restaurantOutline,
+      'analytics': analyticsOutline,
+      'options-outline': optionsOutline
     });
   }
 

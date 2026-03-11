@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonFooter, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { heartOutline, shareSocialOutline, star, starHalf, close, closeOutline, timeOutline, flameOutline, basketOutline } from 'ionicons/icons';
+import { heartOutline, shareSocialOutline, star, starHalf, close } from 'ionicons/icons';
 import { CartService } from '../services/cart.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class ProductDetailPage implements OnInit {
   selectedSugar = '100%';
 
   constructor(private router: Router, private cartService: CartService) {
-    addIcons({closeOutline,star,timeOutline,flameOutline,basketOutline,heartOutline,shareSocialOutline,starHalf,close});
+    addIcons({ heartOutline, shareSocialOutline, star, starHalf, close });
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state) {
       this.product = navigation.extras.state['product'];
